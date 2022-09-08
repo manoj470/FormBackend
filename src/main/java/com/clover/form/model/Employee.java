@@ -33,6 +33,8 @@ public class Employee implements Serializable {
     private Date dateOfBirth;
     @Column(name = "email")
     private String email;
+    @Column(name = "password")
+    private String password;
     @Column(name = "gender")
     private String gender;
     @Column(name = "hobbies")
@@ -49,11 +51,9 @@ public class Employee implements Serializable {
     private String country;
     @Column(name = "pan_number")
     private String panNumber;
-//    @Transient
     @Lob
     @Column(name="avatar")
     private byte[] avatar;
-
     @OneToMany(targetEntity = FamilyDetailsList.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name="emp_id",referencedColumnName = "id")
     private List<FamilyDetailsList> familyDetailsList;

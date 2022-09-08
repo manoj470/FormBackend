@@ -4,14 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostData {
+public class EmpUser {
 
-    private Employee employee;
-    private MultipartFile file;
+    private String email;
+    private String password;
 }

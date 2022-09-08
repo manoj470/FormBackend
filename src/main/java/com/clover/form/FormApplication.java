@@ -1,7 +1,9 @@
 package com.clover.form;
 
+import com.clover.form.model.DocumentDetails;
 import com.clover.form.model.Employee;
 import com.clover.form.model.FamilyDetailsList;
+import com.clover.form.repository.DocumentDetailsRepo;
 import com.clover.form.repository.EmployeeRepository;
 import com.clover.form.repository.FamilyDetailsRepository;
 import com.clover.form.service.EmployeeService;
@@ -23,6 +25,8 @@ public class FormApplication implements CommandLineRunner {
 	private EmployeeService employeeService;
 	@Autowired
 	EmployeeRepository employeeRepository;
+	@Autowired
+	DocumentDetailsRepo documentDetailsRepo;
 //	@Autowired
 //	private FamilyService fm;
 	@Autowired
@@ -30,34 +34,42 @@ public class FormApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Employee employee = new Employee();
-		employee.setEmployeeName("ok");
-		employee.setAddressLine1("qq");
-		employee.setCity("q");
-		employee.setCountry("w");
-		employee.setAddressLine2("q");
-		employee.setEmail("ee");
-		employee.setGender("q");
-		FamilyDetailsList data1 = new FamilyDetailsList();
-		data1.setGender("q");
-		data1.setContactNumber(234);
-		data1.setRelation("w");
-//		data1.setEmployee(employee);
-		FamilyDetailsList data2 = new FamilyDetailsList();
-		data2.setGender("q");
-		data2.setContactNumber(234);
-		data2.setRelation("z");
-//		data2.setEmployee(employee);
-//		List<FamilyDetails> familyDetailsList = new ArrayList<>();
-//		familyDetailsList.add(data1);
-//		familyDetailsList.add(data2);
-		employee.add( data1);
-		employee.add( data2);
-		System.out.println("saving start");
-//		System.out.println(employee.getFamilyDetailsList());
-//		employeeRepository.save(employee);
-		System.out.println("saved.............");
-		System.out.println(employeeRepository.findAll());
+//		DocumentDetails details = new DocumentDetails();
+//		details.setName("ok");
+//		details.setSize("234");
+//		details.setEmpId(1);
+//		details.setFile(new byte[0]);
+//		System.out.println(details);
+		System.out.println(documentDetailsRepo.findAllByEmpId(1));
+
+//		Employee employee = new Employee();
+//		employee.setEmployeeName("ok");
+//		employee.setAddressLine1("qq");
+//		employee.setCity("q");
+//		employee.setCountry("w");
+//		employee.setAddressLine2("q");
+//		employee.setEmail("ee");
+//		employee.setGender("q");
+//		FamilyDetailsList data1 = new FamilyDetailsList();
+//		data1.setGender("q");
+//		data1.setContactNumber(234);
+//		data1.setRelation("w");
+////		data1.setEmployee(employee);
+//		FamilyDetailsList data2 = new FamilyDetailsList();
+//		data2.setGender("q");
+//		data2.setContactNumber(234);
+//		data2.setRelation("z");
+////		data2.setEmployee(employee);
+////		List<FamilyDetails> familyDetailsList = new ArrayList<>();
+////		familyDetailsList.add(data1);
+////		familyDetailsList.add(data2);
+//		employee.add( data1);
+//		employee.add( data2);
+//		System.out.println("saving start");
+////		System.out.println(employee.getFamilyDetailsList());
+////		employeeRepository.save(employee);
+//		System.out.println("saved.............");
+//		System.out.println(employeeRepository.findAll());
 //		Thread.sleep(100000);
 //		fm.getAllFamilyMembersByEmployeeId(1)
 //		Employee data3 = employeeService.getEmployeeById(1);

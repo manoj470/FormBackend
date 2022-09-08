@@ -2,15 +2,15 @@ package com.clover.form.service;
 
 import com.clover.form.miscellaneous.ExtendedService;
 import com.clover.form.model.Employee;
+import com.clover.form.model.ResponseMsg;
 import com.clover.form.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -80,5 +80,27 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public byte[] getProfilePicture(long id) {
 		Optional<Employee> optional = employeeRepository.findById(id);
 		return optional.map(Employee::getAvatar).orElse(null);
+	}
+
+	@Override
+	public ResponseMsg checkAuthentication(String emailId, String pwd) {
+		if(emailId==null){
+			return new ResponseMsg(null,"Oops! Email id is empty");
+		}else if(pwd==null){
+			return new ResponseMsg(null,"Oops! password is empty");
+		}
+		List<Employee> empList = employeeRepository.findEmpByEmail(emailId);
+		System.out.println(">>>>>>> "+empList);
+		if(!empList.isEmpty()){
+			System.out.println("checked1");
+			List<Employee> list = empList.stream()
+					.filter(e-> Objects.equals(e.getPassword(), pwd))
+					.collect(Collectors.toList());
+			if(!list.isEmpty()){
+				Employee employee = list.get(0);
+				return new ResponseMsg(employee.getId(),"Login Successfully!");
+			}
+		}
+		return new ResponseMsg(null,"Invalid User!");
 	}
 }
