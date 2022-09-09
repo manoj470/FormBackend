@@ -92,7 +92,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 		List<Employee> empList = employeeRepository.findEmpByEmail(emailId);
 		System.out.println(">>>>>>> "+empList);
 		if(!empList.isEmpty()){
-			System.out.println("checked1");
 			List<Employee> list = empList.stream()
 					.filter(e-> Objects.equals(e.getPassword(), pwd))
 					.collect(Collectors.toList());

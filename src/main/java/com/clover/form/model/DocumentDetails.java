@@ -24,8 +24,10 @@ public class DocumentDetails implements Serializable {
     @Lob
     @Column(name="file")
     private byte[] file;
+    @Column(name = "type")
+    private String type;
     @Column(name = "size")
-    private String size;
+    private long size;
     @Column(name = "empId")
     private long empId;
 }
