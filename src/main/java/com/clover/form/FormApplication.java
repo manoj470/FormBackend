@@ -1,19 +1,23 @@
 package com.clover.form;
 
-import com.clover.form.model.DocumentDetails;
 import com.clover.form.model.Employee;
-import com.clover.form.model.FamilyDetailsList;
 import com.clover.form.repository.DocumentDetailsRepo;
 import com.clover.form.repository.EmployeeRepository;
 import com.clover.form.repository.FamilyDetailsRepository;
 import com.clover.form.service.EmployeeService;
+import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.Async;
 
-import java.util.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Random;
+import java.util.concurrent.CompletableFuture;
 
+//(exclude={DataSourceAutoConfiguration.class})
 @SpringBootApplication
 public class FormApplication implements CommandLineRunner {
 
@@ -27,127 +31,94 @@ public class FormApplication implements CommandLineRunner {
 	EmployeeRepository employeeRepository;
 	@Autowired
 	DocumentDetailsRepo documentDetailsRepo;
-//	@Autowired
-//	private FamilyService fm;
 	@Autowired
 	FamilyDetailsRepository familyDetailsRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
-//		DocumentDetails details = new DocumentDetails();
-//		details.setName("ok");
-//		details.setSize("234");
-//		details.setEmpId(1);
-//		details.setFile(new byte[0]);
-//		System.out.println(details);
-		System.out.println(documentDetailsRepo.findAllByEmpId(1));
+		System.out.println("start");
+//		CompletableFuture<Void> run = CompletableFuture.runAsync(
+//				()->{
+//					try {
+//						insertData();
+//					} catch (ParseException e) {
+//						throw new RuntimeException(e);
+//					}
+//				}
+//		);
+//		run.join();
 
-//		Employee employee = new Employee();
-//		employee.setEmployeeName("ok");
-//		employee.setAddressLine1("qq");
-//		employee.setCity("q");
-//		employee.setCountry("w");
-//		employee.setAddressLine2("q");
-//		employee.setEmail("ee");
-//		employee.setGender("q");
-//		FamilyDetailsList data1 = new FamilyDetailsList();
-//		data1.setGender("q");
-//		data1.setContactNumber(234);
-//		data1.setRelation("w");
-////		data1.setEmployee(employee);
-//		FamilyDetailsList data2 = new FamilyDetailsList();
-//		data2.setGender("q");
-//		data2.setContactNumber(234);
-//		data2.setRelation("z");
-////		data2.setEmployee(employee);
-////		List<FamilyDetails> familyDetailsList = new ArrayList<>();
-////		familyDetailsList.add(data1);
-////		familyDetailsList.add(data2);
-//		employee.add( data1);
-//		employee.add( data2);
-//		System.out.println("saving start");
-////		System.out.println(employee.getFamilyDetailsList());
-////		employeeRepository.save(employee);
-//		System.out.println("saved.............");
-//		System.out.println(employeeRepository.findAll());
-//		Thread.sleep(100000);
-//		fm.getAllFamilyMembersByEmployeeId(1)
-//		Employee data3 = employeeService.getEmployeeById(1);
-//		List<Employee> dataList = employeeService.getAllEmployees();
-//		for (Employee emp:dataList) {
-//			emp.setFamilyDetailsList(null);
-//		}
-//		System.out.println(dataList);
-//		Optional<Employee> employee1 = employeeRepository.findById(1L);
-//		System.out.println("@@@@@@@@@@@@@");
-//		System.out.println(employee1);
-//		List<FamilyDetails> familyDetailsList = familyDetailsRepository.findAllByEmployeeId(1);
-//		System.out.println(familyDetailsList);
-//		System.out.println("query success");
-//		dataList.forEach((e)->{
-//			System.out.println("Employee Id: "+e.getId());
-//			e.getFamilyDetailsList().forEach((f)->{
-//				System.out.println("Employee data: "+f.getGender());
-//			});
-//		});
-//		dataList.forEach(f->f.setFamilyDetailsList(null));
+	}
 
-//		System.out.println(dataList);
-//		for (Employee emp:dataList) {
-//			List<FamilyDetails> familyDetailsList = new ArrayList<>();
-//			for (FamilyDetails f:emp.getFamilyDetailsList()) {
-//				FamilyDetails m = new FamilyDetails();
-//				m.setName(f.getName());
-//				m.setRelation(f.getRelation());
-////				m.setEmployee(f.getEmployee());
-//				m.setContactNumber(f.getContactNumber());
-//				m.setGender(f.getGender());
-//				m.setId(f.getId());
-//				m.setDateOfBirth(f.getDateOfBirth());
-//				familyDetailsList.add(m);
-//			}
-//			emp.setFamilyDetailsList(familyDetailsList);
-////			System.out.println("inside loop");
-////			System.out.println(emp.getFamilyDetailsList().size());
-////			ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-////			String json = ow.writeValueAsString(emp);
-////			System.out.println(json);
-////			System.out.println("end......");
-////			FamilyDetails m1 = new FamilyDetails();
-////			m1.setName(emp.getFamilyDetailsList().get(5).getName());
-////			familyDetailsList.add(m1);
-//		}
-//		System.out.println(dataList);
-//		System.out.println("start......");
-//		System.out.println(employeeRepository.findAllEmployee());
+	public static String toString(char[] a)
+	{
+		// Creating object of String class
 
-//		for (Employee emp:dataList) {
-//			emp.setFamilyDetailsList(familyDetailsList);
-//		}
-//		List<Object> dest = new ArrayList<>();
-////		System.out.println(dataList);
-//		Collections.copy(dest,dataList);
-//		System.out.println(dest);
+		return new String(a);
+	}
 
-//		List<Employee> copy = new ArrayList<>(dataList);
-//		System.out.println(copy);
+	static String getRandomWord(String[] array) {
+		Random random = new Random();
+		int index = random.nextInt(array.length);
+		return array[index];
+	}
+
+//	static String[] getRandomHobby(String[] ar){
+//		Random random = new Random();
+//		String[] arr = new getRandomWord(ar)
+//
+//	}
 
 
 
-//		System.out.println(test);
+	private static char[] generatePassword(int length) {
+		String capitalCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		String lowerCaseLetters = "abcdefghijklmnopqrstuvwxyz";
+		String specialCharacters = "!@#$";
+		String numbers = "1234567890";
+		String combinedChars = capitalCaseLetters + lowerCaseLetters + specialCharacters + numbers;
+		Random random = new Random();
+		char[] password = new char[length];
 
-//		System.out.println(dataList);
-//		System.out.println(dataList);
-//		System.out.println("@@@@@@@@@@@@@@");
-//		System.out.println(data3.toString());
-//		employeeService.deleteEmployeeById(1);
-//		System.out.println("deleted");
-//		System.out.println("on sleep");
-//		Thread.sleep(100000);
-//		System.out.println("complete sleep");
-//		familyDetailsList.get(0).setName("qwertyuio");
-//		employee.setFamilyDetailsList(familyDetailsList);
-//		employeeService.saveEmployee(employee);
+		password[0] = lowerCaseLetters.charAt(random.nextInt(lowerCaseLetters.length()));
+		password[1] = capitalCaseLetters.charAt(random.nextInt(capitalCaseLetters.length()));
+		password[2] = specialCharacters.charAt(random.nextInt(specialCharacters.length()));
+		password[3] = numbers.charAt(random.nextInt(numbers.length()));
 
+		for(int i = 4; i< length ; i++) {
+			password[i] = combinedChars.charAt(random.nextInt(combinedChars.length()));
+		}
+		return password;
+	}
+	@Async(value = "taskExecutor")
+	public void insertData() throws ParseException {
+		Faker faker = new Faker();
+
+		Random r = new Random();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		for (int i = 0; i < 100000 ; i++) {
+			Employee e = new Employee();
+			e.setEmployeeName(faker.name().fullName());
+//		System.out.println(formatter.format(faker.date().birthday(25,60)));
+//		System.out.println(formatter.format(faker.date().birthday(25,60)));
+			e.setDateOfBirth(formatter.parse(formatter.format(faker.date().birthday(25,60))));
+			e.setAvatar(faker.avatar().image().getBytes());
+			e.setPanNumber(faker.regexify("[a-z]{5}[0-9]{4}[a-z]{1}"));
+			e.setGender(getRandomWord(new String[]{"Male", "Female","Trans"}));
+			e.setCountry(getRandomWord(new String[]{"India","Italy","Germany","France","USA","Russia"}));
+			e.setCity(getRandomWord(
+					new String[]{"Mumbai","Pune","Chennai","Kolkata","Bangalore","Hyderabad","Delhi"}));
+			e.setHobbies(getRandomWord(new String[]{"Reading","Cricket","Football","Listening music"}));
+			e.setAddressLine1(faker.address().streetAddress());
+			e.setAddressLine2(faker.address().secondaryAddress());
+			e.setPassword(toString(generatePassword(8)));
+			e.setZipCode("400097");
+			e.setFamilyDetailsList(null);
+			e.setEmail(faker.regexify("[a-z]{6}\\@"+"[a-z]{4}"));
+			System.out.println(e);
+			employeeRepository.save(e);
+		}
+		System.out.println("inserted");
 	}
 }

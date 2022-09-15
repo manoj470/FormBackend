@@ -1,16 +1,14 @@
 package com.clover.form.model;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Type;
-import org.springframework.web.multipart.MultipartFile;
-
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -58,13 +56,22 @@ public class Employee implements Serializable {
     @JoinColumn(name="emp_id",referencedColumnName = "id")
     private List<FamilyDetailsList> familyDetailsList;
 
-    public void add(FamilyDetailsList familyDetailsList){
-        if (familyDetailsList != null) {
-            if(this.familyDetailsList ==null){
-                this.familyDetailsList = new ArrayList<>();
-            }
-            this.familyDetailsList.add(familyDetailsList);
-        }
-    }
+//    public void add(FamilyDetailsList familyDetailsList){
+//        if (familyDetailsList != null) {
+//            if(this.familyDetailsList ==null){
+//                this.familyDetailsList = new ArrayList<>();
+//            }
+//            this.familyDetailsList.add(familyDetailsList);
+//        }
+//    }
+
+//    public void setImageChangeType(String image){
+//        this.setAvatar(image.getBytes());
+//    }
+//
+//    public void setDateChangeType(LocalDate dateChangeType){
+//        Date d = Date.from(dateChangeType.atStartOfDay(ZoneId.systemDefault()).toInstant());
+//        this.setDateOfBirth(d);
+//    }
 
 }

@@ -3,8 +3,13 @@ package com.clover.form.service;
 import com.clover.form.miscellaneous.ExtendedService;
 import com.clover.form.model.Employee;
 import com.clover.form.model.ResponseMsg;
+import com.clover.form.repository.EmployeePaginationRepo;
 import com.clover.form.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,6 +22,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
+	@Autowired
+	private EmployeePaginationRepo employeePaginationRepo;
 
 	@Override
 	public List<Employee> getAllEmployees() {
@@ -101,5 +108,29 @@ public class EmployeeServiceImpl implements EmployeeService {
 			}
 		}
 		return new ResponseMsg(null,"Invalid User!");
+	}
+
+	@Override
+	public List<Employee> findPaginatedByCity(int pageNo, int pageSize,String city) {
+		Pageable paging = PageRequest.of(pageNo, pageSize);
+		Page<Employee> pagedResult = employeePaginationRepo.findAllByCity(city,paging);
+		return pagedResult.toList();
+	}
+
+	@Override
+	public List<Employee> findPaginated(int pageNo, int pageSize) {
+		Pageable paging = PageRequest.of(pageNo, pageSize);
+		Page<Employee> pagedResult = employeePaginationRepo.findAll(paging);
+		return pagedResult.toList();
+	}
+
+	@Override
+	public Long getEmployeeCount() {
+		try {
+			return employeeRepository.count();
+		}catch (Exception exception){
+			System.out.println("Error "+exception);
+		}
+		return null;
 	}
 }

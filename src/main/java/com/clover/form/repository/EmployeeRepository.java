@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+//@Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long>{
 
 //    @Query(value = "SELECT * FROM EMPLOYEE as a join FAMILY_DETAILS  as b on a.id=b.EMPLOYEE_ID ",nativeQuery = true)
@@ -18,5 +18,9 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long>{
     List<Employee> findEmpByEmail(@Param(value = "email") String email);
 
     Employee findByEmail(String email);
+
+    List<Employee> findFirst100ById(int salary);
+
+
 
 }

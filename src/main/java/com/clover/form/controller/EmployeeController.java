@@ -133,4 +133,27 @@ public class EmployeeController {
 		System.out.println("hit on deleteByDocId");
 		return documentUploadService.deleteDocById(id);
 	}
+
+
+	@GetMapping(value= "/emp/{pageNo}/{pageSize}/{city}")
+	public List<Employee> getPaginatedDataByCity(@PathVariable int pageNo,
+											   @PathVariable int pageSize,
+												@PathVariable String city) {
+
+		return employeeService.findPaginatedByCity(pageNo, pageSize,city);
+	}
+
+	@GetMapping(value= "/emp/{pageNo}/{pageSize}")
+	public List<Employee> getPaginatedAllData(@PathVariable int pageNo,
+												@PathVariable int pageSize) {
+
+		return employeeService.findPaginated(pageNo, pageSize);
+	}
+
+	@GetMapping(value= "/emp/count")
+	public Long getEmployeeCount() {
+		return employeeService.getEmployeeCount();
+	}
+
+
 }

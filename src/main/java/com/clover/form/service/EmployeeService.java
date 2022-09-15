@@ -15,4 +15,8 @@ public interface EmployeeService {
 	void setProfilePicture(long id, MultipartFile file);
 	byte[] getProfilePicture(long id);
 	ResponseMsg checkAuthentication(String emailId, String pwd);
+	List<Employee> findPaginatedByCity(int pageNo, int pageSize,String city);
+	List<Employee> findPaginated(int pageNo, int pageSize);
+	Long getEmployeeCount();
+
 }
