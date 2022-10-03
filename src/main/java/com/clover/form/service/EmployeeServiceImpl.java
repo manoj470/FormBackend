@@ -9,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -28,7 +26,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public List<Employee> getAllEmployees() {
 //		return ExtendedService.setNull(employeeRepository.findAll());
-		return employeeRepository.findAll();
+		return employeeRepository.findAllLimit();
 	}
 
 	@Override
@@ -130,6 +128,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 			return employeeRepository.count();
 		}catch (Exception exception){
 			System.out.println("Error "+exception);
+		}
+		return null;
+	}
+
+	@Override
+	public List<Employee> searchRowsByFieldData(String query) {
+		try {
+			if(query.isEmpty()){
+				return null;
+			}else {
+				return employeeRepository.findEmpByEmail(query);
+			}
+		}catch (Exception exception){
+			System.out.println("Error in search method "
+					+ Arrays.toString(exception.getStackTrace()));
 		}
 		return null;
 	}

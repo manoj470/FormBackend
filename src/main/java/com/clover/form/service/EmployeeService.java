@@ -19,4 +19,6 @@ public interface EmployeeService {
 	List<Employee> findPaginated(int pageNo, int pageSize);
 	Long getEmployeeCount();
 
+	List<Employee> searchRowsByFieldData(String query);
+
 }

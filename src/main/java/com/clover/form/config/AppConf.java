@@ -14,6 +14,7 @@ public class AppConf implements WebMvcConfigurer {
                 .allowedMethods("GET")
                 .allowedMethods("PUT")
                 .allowedMethods("DELETE")
-                .allowedMethods("POST");
+                .allowedMethods("POST")
+                .allowCredentials(true);
     }
 }

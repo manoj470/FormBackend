@@ -11,6 +11,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,6 +44,14 @@ public class FormApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		System.out.println("start");
+		Authentication a;
+		UsernamePasswordAuthenticationToken s;
+		AuthenticationManager q;
+		AuthenticationProvider w;
+		ProviderManager r;
+		DaoAuthenticationProvider t;
+		UserDetails d;
+
 //		CompletableFuture<Void> run = CompletableFuture.runAsync(
 //				()->{
 //					try {
@@ -90,11 +105,11 @@ public class FormApplication implements CommandLineRunner {
 		}
 		return password;
 	}
-	@Async(value = "taskExecutor")
+//	@Async(value = "taskExecutor")
 	public void insertData() throws ParseException {
 		Faker faker = new Faker();
 
-		Random r = new Random();
+//		Random r = new Random();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		for (int i = 0; i < 100000 ; i++) {
