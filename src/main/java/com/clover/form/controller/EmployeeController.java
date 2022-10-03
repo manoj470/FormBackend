@@ -1,18 +1,22 @@
 package com.clover.form.controller;
 
 import com.clover.form.miscellaneous.ExtendedService;
-import com.clover.form.model.DocumentDetails;
-import com.clover.form.model.EmpUser;
-import com.clover.form.model.Employee;
-import com.clover.form.model.ResponseMsg;
+import com.clover.form.miscellaneous.JwtUtils;
+import com.clover.form.model.*;
 import com.clover.form.service.DocumentUploadService;
 import com.clover.form.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -153,6 +157,29 @@ public class EmployeeController {
 	@GetMapping(value= "/emp/count")
 	public Long getEmployeeCount() {
 		return employeeService.getEmployeeCount();
+	}
+
+	@Autowired
+	AuthenticationManager authenticationManager;
+	@Autowired
+	JwtUtils jwtUtils;
+
+	@PostMapping(value = "/emp/sign_in" ,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> checkAuth(@RequestBody EmpUser user){
+		System.out.println(user);
+		Authentication authentication = authenticationManager
+				.authenticate(new UsernamePasswordAuthenticationToken
+						(user.getEmail(), user.getPassword()));
+
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+
+		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
+		ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+		System.out.println(">>>> "+jwtCookie.toString());
+		return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+				.body(new LoginResponse(userDetails.getUsername(),
+						"Login Successfully!"));
 	}
 
 

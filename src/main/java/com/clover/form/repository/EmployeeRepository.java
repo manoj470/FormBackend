@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 //@Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long>{
@@ -17,7 +18,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long>{
     @Query(value = "SELECT * FROM employee where email=?1",nativeQuery = true)
     List<Employee> findEmpByEmail(@Param(value = "email") String email);
 
-    Employee findByEmail(String email);
+    Optional<Employee> findByEmail(String email);
 
     List<Employee> findFirst100ById(int salary);
 

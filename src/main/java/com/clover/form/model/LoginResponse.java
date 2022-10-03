@@ -1,0 +1,16 @@
+package com.clover.form.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@Data
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+public class LoginResponse {
+
+    private String email;
+    private String msg;
+}
