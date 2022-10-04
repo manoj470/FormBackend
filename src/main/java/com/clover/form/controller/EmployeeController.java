@@ -7,8 +7,8 @@ import com.clover.form.model.Employee;
 import com.clover.form.model.ResponseMsg;
 import com.clover.form.security.AuthRequest;
 import com.clover.form.security.AuthResponse;
-import com.clover.form.security.JWTUtil;
-import com.clover.form.security.MyUserDetailsService;
+//import com.clover.form.security.JWTUtil;
+//import com.clover.form.security.MyUserDetailsService;
 import com.clover.form.service.DocumentUploadService;
 import com.clover.form.service.EmployeeService;
 import com.clover.form.service.ExportCSV;
@@ -21,11 +21,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.authentication.AuthenticationManager;
+//import org.springframework.security.authentication.BadCredentialsException;
+//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+//import org.springframework.security.core.Authentication;
+//import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -195,46 +195,46 @@ public class EmployeeController {
 		return employeeService.searchRowsByFieldData(query);
 	}
 
-	@Autowired
-	AuthenticationManager authenticationManager;
-	@Autowired
-	MyUserDetailsService userDetailsService;
-	@Autowired
-	JWTUtil jwtUtil;
+//	@Autowired
+//	AuthenticationManager authenticationManager;
+//	@Autowired
+//	MyUserDetailsService userDetailsService;
+//	@Autowired
+//	JWTUtil jwtUtil;
 
-	@PostMapping(value = "/emp/auth/sign_in")
-	public ResponseEntity<?> createAuthToken(@RequestBody AuthRequest authRequest)throws Exception{
-		System.out.println("Called.............................");
-		System.out.println("create auth token......"+authRequest);
-		if(authRequest.getEmail()==null){
-			return ResponseEntity.ok()
-					.body(new AuthResponse("Oops! Email id is empty"));
-		}else if(authRequest.getPassword()==null){
-			return ResponseEntity.ok()
-					.body(new AuthResponse("Oops! password is empty"));
-		}
-		Authentication authentication;
-		try {
-			authentication = authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(authRequest.getEmail(),
-							authRequest.getPassword())
-			);
-		}catch (BadCredentialsException ex){
-			throw new Exception("Incorrect username or password ");
-		}
-		final UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-		System.out.println(userDetails.toString());
-		ResponseCookie jwtCookie = jwtUtil.generateJwtCookie(userDetails);
-		System.out.println("token is: "+jwtCookie);
-		return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-				.body(new AuthResponse("Login Successfully!"));
-	}
+//	@PostMapping(value = "/emp/sign_in")
+//	public ResponseEntity<?> createAuthToken(@RequestBody AuthRequest authRequest)throws Exception{
+//		System.out.println("Called.............................");
+//		System.out.println("create auth token......"+authRequest);
+//		if(authRequest.getEmail()==null){
+//			return ResponseEntity.ok()
+//					.body(new AuthResponse("Oops! Email id is empty"));
+//		}else if(authRequest.getPassword()==null){
+//			return ResponseEntity.ok()
+//					.body(new AuthResponse("Oops! password is empty"));
+//		}
+//		Authentication authentication;
+//		try {
+//			authentication = authenticationManager.authenticate(
+//					new UsernamePasswordAuthenticationToken(authRequest.getEmail(),
+//							authRequest.getPassword())
+//			);
+//		}catch (BadCredentialsException ex){
+//			throw new Exception("Incorrect username or password ");
+//		}
+//		final UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+//		System.out.println(userDetails.toString());
+//		ResponseCookie jwtCookie = jwtUtil.generateJwtCookie(userDetails);
+//		System.out.println("token is: "+jwtCookie);
+//		return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+//				.body(new AuthResponse("Login Successfully!"));
+//	}
 
-	@PostMapping("/emp/auth/sign_out")
-	public ResponseEntity<?> logoutUser() {
-		ResponseCookie cookie = jwtUtil.getCleanJwtCookie();
-		return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
-				.body(new AuthResponse("You've been signed out!"));
-	}
+//	@PostMapping("/emp/sign_out")
+//	public ResponseEntity<?> logoutUser() {
+//		ResponseCookie cookie = jwtUtil.getCleanJwtCookie();
+//		return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
+//				.body(new AuthResponse("You've been signed out!"));
+//	}
 
 }
